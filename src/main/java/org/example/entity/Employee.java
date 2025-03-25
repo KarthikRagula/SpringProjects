@@ -1,9 +1,22 @@
 package org.example.entity;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+
 public class Employee {
     private int empId;
     private String empName;
     private String phone;
+
+    @PostConstruct
+    public void init() {
+        System.out.println("MyService is initialized");
+    }
+
+    @PreDestroy
+    public void destroy() {
+        System.out.println("MyService is being destroyed");
+    }
 
     public Employee(int empId, String empName, String phone) {
         this.empId = empId;
@@ -11,7 +24,8 @@ public class Employee {
         this.phone = phone;
     }
 
-    public Employee(){}
+    public Employee() {
+    }
 
     public int getEmpId() {
         return empId;
