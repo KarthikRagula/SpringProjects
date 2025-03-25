@@ -1,22 +1,29 @@
 package org.example.controller;
 
+import org.example.entity.Employee;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class HomeController {
 
-    @GetMapping("")
-    public String home(Model model) {
-        model.addAttribute("message", "Welcome to Spring MVC with JSP!");
-        return "home";
+    @Autowired
+    private Employee employee;
+
+    @GetMapping("/getEmployeeFromXML")
+    @ResponseBody
+    public Employee getEmployeeFromXML() {
+        return employee;
     }
 
-    @GetMapping("/message")
+    @GetMapping("/getEmployeeFromJava")
     @ResponseBody
-    public String getMessage() {
-        return "Hello, JSON response from Spring!";
+    public Employee getEmployeeFromJava() {
+        employee.setEmpId(1);
+        employee.setEmpName("Karthik");
+        employee.setPhone("8008041620");
+        return employee;
     }
 }
