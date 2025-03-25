@@ -21,9 +21,6 @@ public class HomeController {
     @GetMapping("/getEmployeeFromJava")
     @ResponseBody
     public Employee getEmployeeFromJava() {
-        employee.setEmpId(1);
-        employee.setEmpName("Karthik");
-        employee.setPhone("8008041620");
         return employee;
     }
 }

@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @ComponentScan("org.example")
 public class AppConfig {
     @Bean
-    public Employee employee(){
-        return new Employee();
+    public Employee employee() {
+        return new Employee(2,"RK","9440105539");
     }
 }

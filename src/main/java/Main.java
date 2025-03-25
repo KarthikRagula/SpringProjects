@@ -1,4 +1,5 @@
 //import org.example.config.AppConfig;
+//import org.example.config.AppConfig;
 import org.example.config.AppConfig;
 import org.example.entity.Employee;
 import org.springframework.context.ApplicationContext;
@@ -15,9 +16,6 @@ public class Main {
 //        Java based configuration
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
         Employee employeeBean = context.getBean(Employee.class);
-        employeeBean.setEmpId(1);
-        employeeBean.setEmpName("Karthik");
-        employeeBean.setPhone("8008041620");
         System.out.println(employeeBean);
     }
 }
