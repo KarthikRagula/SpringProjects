@@ -11,9 +11,5 @@
            http://www.springframework.org/schema/mvc/spring-mvc.xsd">
     <mvc:annotation-driven/>
     <context:component-scan base-package="org.example"/>
-    <bean id="EmployeeBean" class="org.example.entity.Employee">
-        <property name="empId" value="1"/>
-        <property name="empName" value="Karthik"/>
-        <property name="phone" value="8008041620"/>
-    </bean>
+    <bean id="employeeService" class="org.example.serviceImpl.EmployeeServiceImpl"/>
 </beans>

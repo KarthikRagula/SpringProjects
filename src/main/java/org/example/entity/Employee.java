@@ -3,9 +3,15 @@ package org.example.entity;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 
+import java.util.Objects;
+
 public class Employee {
-    private int empId;
-    private String empName;
+
+    public static long idCounter = 1;
+
+    private long empId;
+    private String name;
+    private int age;
     private String phone;
 
     @PostConstruct
@@ -18,29 +24,36 @@ public class Employee {
         System.out.println("MyService is being destroyed");
     }
 
-    public Employee(int empId, String empName, String phone) {
-        this.empId = empId;
-        this.empName = empName;
-        this.phone = phone;
+    public static long getIdCounter() {
+        return idCounter;
     }
 
-    public Employee() {
+    public static void setIdCounter(long idCounter) {
+        Employee.idCounter = idCounter;
     }
 
-    public int getEmpId() {
+    public long getEmpId() {
         return empId;
     }
 
-    public void setEmpId(int empId) {
+    public void setEmpId(long empId) {
         this.empId = empId;
     }
 
-    public String getEmpName() {
-        return empName;
+    public String getName() {
+        return name;
     }
 
-    public void setEmpName(String empName) {
-        this.empName = empName;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public String getPhone() {
@@ -52,11 +65,14 @@ public class Employee {
     }
 
     @Override
-    public String toString() {
-        return "Employee{" +
-                "empId=" + empId +
-                ", empName='" + empName + '\'' +
-                ", phone='" + phone + '\'' +
-                '}';
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return empId == employee.empId && age == employee.age && Objects.equals(name, employee.name) && Objects.equals(phone, employee.phone);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(empId, name, age, phone);
     }
 }
