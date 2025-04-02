@@ -12,4 +12,5 @@
     <mvc:annotation-driven/>
     <context:component-scan base-package="org.example"/>
     <bean id="employeeService" class="org.example.serviceImpl.EmployeeServiceImpl"/>
+    <bean id="dbEmployeeService" class="org.example.serviceImpl.DBEmployeeServiceImpl"/>
 </beans>

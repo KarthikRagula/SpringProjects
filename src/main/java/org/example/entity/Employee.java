@@ -2,17 +2,32 @@ package org.example.entity;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 import java.util.Objects;
 
+@Entity
 public class Employee {
 
     public static long idCounter = 1;
 
+    @Id
     private long empId;
     private String name;
     private int age;
     private String phone;
+
+    public Employee(long empId, String name, int age, String phone) {
+        this.empId = empId;
+        this.name = name;
+        this.age = age;
+        this.phone = phone;
+    }
+
+    public Employee(){
+
+    }
 
     @PostConstruct
     public void init() {
