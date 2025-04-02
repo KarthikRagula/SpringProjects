@@ -3,6 +3,8 @@ package org.example.entity;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import java.util.Objects;
@@ -10,9 +12,8 @@ import java.util.Objects;
 @Entity
 public class Employee {
 
-    public static long idCounter = 1;
-
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long empId;
     private String name;
     private int age;
@@ -25,7 +26,7 @@ public class Employee {
         this.phone = phone;
     }
 
-    public Employee(){
+    public Employee() {
 
     }
 
@@ -37,14 +38,6 @@ public class Employee {
     @PreDestroy
     public void destroy() {
         System.out.println("MyService is being destroyed");
-    }
-
-    public static long getIdCounter() {
-        return idCounter;
-    }
-
-    public static void setIdCounter(long idCounter) {
-        Employee.idCounter = idCounter;
     }
 
     public long getEmpId() {

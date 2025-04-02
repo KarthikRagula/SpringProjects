@@ -11,7 +11,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final List<Employee> listOfEmployees = new ArrayList<>();
 
     public synchronized long addNewEmployee(Employee employee) {
-        employee.setEmpId(Employee.idCounter++);
         listOfEmployees.add(employee);
         return employee.getEmpId();
     }

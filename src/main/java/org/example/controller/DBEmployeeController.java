@@ -11,21 +11,21 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/employee")
+@RequestMapping("/dbemployee")
 public class DBEmployeeController {
 
     @Autowired
-    private EmployeeService employeeService;
+    private EmployeeService dbEmployeeService;
 
     @PostMapping("/")
     public ResponseEntity<?> createEmployee(@RequestBody Employee emp) {
-        long empId = employeeService.addNewEmployee(emp);
+        long empId = dbEmployeeService.addNewEmployee(emp);
         return new ResponseEntity<>(new ResponseMessage("Employee with id " + empId + " created succesfully"), HttpStatus.OK);
     }
 
     @GetMapping("/")
     public ResponseEntity<?> getEmployee() {
-        List<Employee> employeeList = employeeService.getAllEmployees();
+        List<Employee> employeeList = dbEmployeeService.getAllEmployees();
         if (employeeList.isEmpty()) {
             return new ResponseEntity<>(new ResponseMessage("Employee list is empty"), HttpStatus.OK);
         }
@@ -34,7 +34,7 @@ public class DBEmployeeController {
 
     @GetMapping("/{empId}")
     public ResponseEntity<?> getEmployeeById(@PathVariable long empId) {
-        Employee emp = employeeService.getEmployeeById(empId);
+        Employee emp = dbEmployeeService.getEmployeeById(empId);
         if (emp == null) {
             return new ResponseEntity<>(new ResponseMessage("Employee with id " + empId + " not found."), HttpStatus.OK);
         }
@@ -43,7 +43,7 @@ public class DBEmployeeController {
 
     @PutMapping("/{empId}")
     public ResponseEntity<?> updateEmployee(@RequestBody Employee updatedEmployee, @PathVariable long empId) {
-        long employeeId = employeeService.updateEmployee(updatedEmployee, empId);
+        long employeeId = dbEmployeeService.updateEmployee(updatedEmployee, empId);
         if (employeeId == -1) {
             return new ResponseEntity<>(new ResponseMessage("Employee with id " + empId + " not found"), HttpStatus.NOT_FOUND);
         }
@@ -52,7 +52,7 @@ public class DBEmployeeController {
 
     @DeleteMapping("/{empId}")
     public ResponseEntity<?> deleteEmployee(@PathVariable long empId) {
-        long employeeId = employeeService.deleteEmployee(empId);
+        long employeeId = dbEmployeeService.deleteEmployee(empId);
         if (employeeId == -1) {
             return new ResponseEntity<>(new ResponseMessage("Employee with id " + empId + " not found"), HttpStatus.NOT_FOUND);
         }

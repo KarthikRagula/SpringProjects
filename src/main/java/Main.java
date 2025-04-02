@@ -5,7 +5,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.sql.ast.tree.from.CorrelatedTableGroup;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -37,7 +36,7 @@ public class Main {
 
         session.persist(emp);
         transaction.commit();
-        
+
         session.close();
         factory.close();
     }
