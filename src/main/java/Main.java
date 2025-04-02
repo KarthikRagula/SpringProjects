@@ -23,21 +23,21 @@ public class Main {
 //        System.out.println(employeeBean);
 
 //        context.close();
-        Employee emp = new Employee(4, "Karthik", 20, "8008041620");
-
-        SessionFactory factory = new Configuration()
-                .addAnnotatedClass(org.example.entity.Employee.class)
-                .configure()
-                .buildSessionFactory();
-
-        Session session = factory.openSession();
-
-        Transaction transaction = session.beginTransaction();
-
-        session.persist(emp);
-        transaction.commit();
-
-        session.close();
-        factory.close();
+//        Employee emp = new Employee(4, "Karthik", 20, "8008041620");
+//
+//        SessionFactory factory = new Configuration()
+//                .addAnnotatedClass(org.example.entity.Employee.class)
+//                .configure()
+//                .buildSessionFactory();
+//
+//        Session session = factory.openSession();
+//
+//        Transaction transaction = session.beginTransaction();
+//
+//        session.persist(emp);
+//        transaction.commit();
+//
+//        session.close();
+//        factory.close();
     }
 }

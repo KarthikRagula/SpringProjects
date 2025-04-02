@@ -15,7 +15,7 @@ public class Employee {
     public static long idCounter = 1;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long empId;
     private String name;
     private int age;
