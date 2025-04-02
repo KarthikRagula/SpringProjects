@@ -12,8 +12,10 @@ import java.util.Objects;
 @Entity
 public class Employee {
 
+    public static long idCounter = 1;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long empId;
     private String name;
     private int age;
@@ -26,7 +28,7 @@ public class Employee {
         this.phone = phone;
     }
 
-    public Employee() {
+    public Employee(){
 
     }
 
@@ -38,6 +40,14 @@ public class Employee {
     @PreDestroy
     public void destroy() {
         System.out.println("MyService is being destroyed");
+    }
+
+    public static long getIdCounter() {
+        return idCounter;
+    }
+
+    public static void setIdCounter(long idCounter) {
+        Employee.idCounter = idCounter;
     }
 
     public long getEmpId() {

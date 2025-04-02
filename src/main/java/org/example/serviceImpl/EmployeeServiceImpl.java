@@ -2,15 +2,18 @@ package org.example.serviceImpl;
 
 import org.example.entity.Employee;
 import org.example.service.EmployeeService;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+@Service
 public class EmployeeServiceImpl implements EmployeeService {
     private final List<Employee> listOfEmployees = new ArrayList<>();
 
     public synchronized long addNewEmployee(Employee employee) {
+        employee.setEmpId(Employee.idCounter++);
         listOfEmployees.add(employee);
         return employee.getEmpId();
     }

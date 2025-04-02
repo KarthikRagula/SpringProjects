@@ -1,8 +1,8 @@
 package org.example.serviceImpl;
 
-import org.springframework.transaction.annotation.Transactional;
-import org.example.entity.Employee;
 
+import org.example.entity.Employee;
+import org.springframework.transaction.annotation.*;
 import org.example.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;

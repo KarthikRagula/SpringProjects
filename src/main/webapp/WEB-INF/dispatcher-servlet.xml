@@ -15,8 +15,6 @@
 
            http://www.springframework.org/schema/context
            http://www.springframework.org/schema/context/spring-context.xsd">
-
-
     <mvc:annotation-driven/>
     <context:component-scan base-package="org.example"/>
 
@@ -48,6 +46,9 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <bean id="employeeService" class="org.example.serviceImpl.EmployeeServiceImpl"/>
 
+    <bean id="dbEmployeeService" class="org.example.serviceImpl.DBEmployeeServiceImpl"/>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 </beans>
