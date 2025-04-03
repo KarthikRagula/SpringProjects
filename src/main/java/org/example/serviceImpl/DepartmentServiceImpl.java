@@ -23,6 +23,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public long addNewDepartment(Department department) {
         hibernateTemplate.save(department);
+//        int a=5/0;
         return department.getDeptId();
     }
 

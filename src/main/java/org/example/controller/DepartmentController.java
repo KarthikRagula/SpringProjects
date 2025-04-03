@@ -19,7 +19,14 @@ public class DepartmentController {
 
     @PostMapping("/")
     public ResponseEntity<?> createDepartment(@RequestBody Department department) {
-        long deptId = departmentService.addNewDepartment(department);
+        long deptId=-1;
+        try{
+            deptId = departmentService.addNewDepartment(department);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
         return new ResponseEntity<>(new ResponseMessage("Department with id " + deptId + " created succesfully"), HttpStatus.OK);
     }
 
