@@ -1,9 +1,11 @@
 package org.example.serviceImpl;
 
 
+import org.example.entity.Department;
 import org.example.entity.Employee;
+import org.example.request.EmployeeRequest;
+import org.example.service.DBEmployeeService;
 import org.springframework.transaction.annotation.*;
-import org.example.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Service;
@@ -12,7 +14,7 @@ import java.util.List;
 
 @Transactional
 @Service
-public class DBEmployeeServiceImpl implements EmployeeService {
+public class DBEmployeeServiceImpl implements DBEmployeeService {
 
     private HibernateTemplate hibernateTemplate;
 
@@ -22,7 +24,16 @@ public class DBEmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public long addNewEmployee(Employee employee) {
+    public long addNewEmployee(EmployeeRequest employeeRequest) {
+        Department department = hibernateTemplate.get(Department.class, employeeRequest.getDeptId());
+        if (department == null) {
+            return -2;
+        }
+        Employee employee = new Employee();
+        employee.setName(employeeRequest.getName());
+        employee.setAge(employeeRequest.getAge());
+        employee.setPhone(employeeRequest.getPhone());
+        employee.setDepartment(department);
         hibernateTemplate.save(employee);
         return employee.getEmpId();
     }
@@ -38,16 +49,20 @@ public class DBEmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public long updateEmployee(Employee employee, long empId) {
-        Employee emp = hibernateTemplate.get(Employee.class, empId);
-        if (emp != null) {
-            emp.setName(employee.getName());
-            emp.setAge(employee.getAge());
-            emp.setPhone(employee.getPhone());
-            hibernateTemplate.update(emp);
-            return empId;
+    public long updateEmployee(EmployeeRequest updatedEmployeeRequest, long empId) {
+        Employee employee = hibernateTemplate.get(Employee.class, empId);
+        Department department = hibernateTemplate.get(Department.class, updatedEmployeeRequest.getDeptId());
+        if (employee == null) {
+            return -1;
+        } else if (department == null) {
+            return -2;
         }
-        return -1;
+        employee.setName(updatedEmployeeRequest.getName());
+        employee.setAge(updatedEmployeeRequest.getAge());
+        employee.setPhone(updatedEmployeeRequest.getPhone());
+        employee.setDepartment(department);
+        hibernateTemplate.update(employee);
+        return empId;
     }
 
     @Override

@@ -2,10 +2,7 @@ package org.example.entity;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
@@ -20,6 +17,10 @@ public class Employee {
     private String name;
     private int age;
     private String phone;
+
+    @ManyToOne
+    @JoinColumn(name = "deptId", nullable = false)
+    private Department department;
 
     public Employee(long empId, String name, int age, String phone) {
         this.empId = empId;
@@ -80,6 +81,14 @@ public class Employee {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     @Override

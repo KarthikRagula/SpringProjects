@@ -1,8 +1,9 @@
 package org.example.controller;
 
 import org.example.entity.Employee;
+import org.example.request.EmployeeRequest;
 import org.example.response.ResponseMessage;
-import org.example.service.EmployeeService;
+import org.example.service.DBEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +16,14 @@ import java.util.List;
 public class DBEmployeeController {
 
     @Autowired
-    private EmployeeService dbEmployeeService;
+    private DBEmployeeService dbEmployeeService;
 
     @PostMapping("/")
-    public ResponseEntity<?> createEmployee(@RequestBody Employee emp) {
-        long empId = dbEmployeeService.addNewEmployee(emp);
+    public ResponseEntity<?> createEmployee(@RequestBody EmployeeRequest employeeRequest) {
+        long empId = dbEmployeeService.addNewEmployee(employeeRequest);
+        if(empId==-2){
+            return new ResponseEntity<>(new ResponseMessage("Department with Id "+ employeeRequest.getDeptId() + " not found"), HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(new ResponseMessage("Employee with id " + empId + " created succesfully"), HttpStatus.OK);
     }
 
@@ -42,10 +46,13 @@ public class DBEmployeeController {
     }
 
     @PutMapping("/{empId}")
-    public ResponseEntity<?> updateEmployee(@RequestBody Employee updatedEmployee, @PathVariable long empId) {
-        long employeeId = dbEmployeeService.updateEmployee(updatedEmployee, empId);
+    public ResponseEntity<?> updateEmployee(@RequestBody EmployeeRequest updatedEmployeeRequest, @PathVariable long empId) {
+        long employeeId = dbEmployeeService.updateEmployee(updatedEmployeeRequest, empId);
         if (employeeId == -1) {
             return new ResponseEntity<>(new ResponseMessage("Employee with id " + empId + " not found"), HttpStatus.NOT_FOUND);
+        }
+        else if(employeeId==-2){
+            return new ResponseEntity<>(new ResponseMessage("Department with id " + updatedEmployeeRequest.getDeptId() + " not found"), HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(new ResponseMessage("Employee with id " + employeeId + " updated successfully"), HttpStatus.OK);
     }
