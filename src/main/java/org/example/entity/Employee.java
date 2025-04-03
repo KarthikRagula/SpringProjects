@@ -7,12 +7,13 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
+@SequenceGenerator(name="employee_sequence",sequenceName = "employee_sequence", allocationSize = 1)
 public class Employee {
 
     public static long idCounter = 1;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_sequence")
     private long empId;
     private String name;
     private int age;

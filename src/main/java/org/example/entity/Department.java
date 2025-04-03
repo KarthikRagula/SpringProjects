@@ -6,10 +6,11 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
+@SequenceGenerator(name="department_sequence", sequenceName = "department_sequence", allocationSize = 1)
 public class Department {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "department_sequence")
     private long deptId;
     private String deptName;
 
