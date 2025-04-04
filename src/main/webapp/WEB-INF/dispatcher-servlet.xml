@@ -46,11 +46,5 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <bean id="employeeService" class="org.example.serviceImpl.EmployeeServiceImpl"/>
-
-    <bean id="dbEmployeeService" class="org.example.serviceImpl.DBEmployeeServiceImpl"/>
-
-    <bean id="departmentService" class="org.example.serviceImpl.DepartmentServiceImpl"/>
-
     <tx:annotation-driven transaction-manager="transactionManager"/>
 </beans>

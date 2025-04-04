@@ -3,7 +3,6 @@ package org.example.serviceImpl;
 
 import org.example.entity.Department;
 import org.example.entity.Employee;
-import org.example.request.EmployeeRequest;
 import org.example.service.DBEmployeeService;
 import org.springframework.transaction.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,16 +23,11 @@ public class DBEmployeeServiceImpl implements DBEmployeeService {
     }
 
     @Override
-    public long addNewEmployee(EmployeeRequest employeeRequest) {
-        Department department = hibernateTemplate.get(Department.class, employeeRequest.getDeptId());
+    public long addNewEmployee(Employee employee) {
+        Department department = hibernateTemplate.get(Department.class, employee.getDepartment().getDeptId());
         if (department == null) {
             return -2;
         }
-        Employee employee = new Employee();
-        employee.setName(employeeRequest.getName());
-        employee.setAge(employeeRequest.getAge());
-        employee.setPhone(employeeRequest.getPhone());
-        employee.setDepartment(department);
         hibernateTemplate.save(employee);
         return employee.getEmpId();
     }
@@ -45,23 +39,20 @@ public class DBEmployeeServiceImpl implements DBEmployeeService {
 
     @Override
     public Employee getEmployeeById(long empId) {
-        return hibernateTemplate.get(Employee.class, empId); // ✅ Corrected
+        return hibernateTemplate.get(Employee.class, empId);
     }
 
     @Override
-    public long updateEmployee(EmployeeRequest updatedEmployeeRequest, long empId) {
+    public long updateEmployee(Employee updateEmployee, long empId) {
         Employee employee = hibernateTemplate.get(Employee.class, empId);
-        Department department = hibernateTemplate.get(Department.class, updatedEmployeeRequest.getDeptId());
+        Department department = hibernateTemplate.get(Department.class, updateEmployee.getDepartment().getDeptId());
         if (employee == null) {
             return -1;
         } else if (department == null) {
             return -2;
         }
-        employee.setName(updatedEmployeeRequest.getName());
-        employee.setAge(updatedEmployeeRequest.getAge());
-        employee.setPhone(updatedEmployeeRequest.getPhone());
-        employee.setDepartment(department);
-        hibernateTemplate.update(employee);
+        updateEmployee.setEmpId(empId);
+        hibernateTemplate.merge(updateEmployee);
         return empId;
     }
 

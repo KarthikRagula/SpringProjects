@@ -38,11 +38,11 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public long updateDepartment(Department department, long deptId) {
-        Department department1 = hibernateTemplate.get(Department.class, deptId);
-        if (department1 != null) {
-            department1.setDeptName(department.getDeptName());
-            hibernateTemplate.update(department1);
+    public long updateDepartment(Department updateDepartment, long deptId) {
+        Department department = hibernateTemplate.get(Department.class, deptId);
+        if (department != null) {
+            updateDepartment.setDeptId(deptId);
+            hibernateTemplate.merge(updateDepartment);
             return deptId;
         }
         return -1;
