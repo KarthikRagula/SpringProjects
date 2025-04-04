@@ -25,13 +25,13 @@ public class DBEmployeeServiceImpl implements DBEmployeeService {
     }
 
     @Override
-    public long addNewEmployee(Employee employee) {
+    public Employee addNewEmployee(Employee employee) {
         Department department = hibernateTemplate.get(Department.class, employee.getDepartment().getDeptId());
         if (department == null) {
             throw new DepartmentNotFoundException("Department with the Id " + employee.getDepartment().getDeptId() + " is not found");
         }
         hibernateTemplate.save(employee);
-        return employee.getEmpId();
+        return employee;
     }
 
     @Override
@@ -49,7 +49,7 @@ public class DBEmployeeServiceImpl implements DBEmployeeService {
     }
 
     @Override
-    public long updateEmployee(Employee updateEmployee, long empId) {
+    public Employee updateEmployee(Employee updateEmployee, long empId) {
         Employee employee = hibernateTemplate.get(Employee.class, empId);
         Department department = hibernateTemplate.get(Department.class, updateEmployee.getDepartment().getDeptId());
         if (employee == null) {
@@ -59,7 +59,7 @@ public class DBEmployeeServiceImpl implements DBEmployeeService {
         }
         updateEmployee.setEmpId(empId);
         hibernateTemplate.merge(updateEmployee);
-        return empId;
+        return updateEmployee;
     }
 
     @Override

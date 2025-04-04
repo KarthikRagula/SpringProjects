@@ -19,8 +19,8 @@ public class DBEmployeeController {
 
     @PostMapping("/")
     public ResponseEntity<?> createEmployee(@RequestBody Employee employee) {
-        long empId = dbEmployeeService.addNewEmployee(employee);
-        return new ResponseEntity<>(new ResponseMessage("Employee with id " + empId + " created succesfully"), HttpStatus.OK);//4 object return
+        Employee emp = dbEmployeeService.addNewEmployee(employee);
+        return new ResponseEntity<>(emp, HttpStatus.OK);//4 object return
     }
 
     @GetMapping("/")
@@ -40,8 +40,8 @@ public class DBEmployeeController {
 
     @PutMapping("/{empId}")
     public ResponseEntity<?> updateEmployee(@RequestBody Employee updateEmployee, @PathVariable long empId) {
-        long employeeId = dbEmployeeService.updateEmployee(updateEmployee, empId);
-        return new ResponseEntity<>(new ResponseMessage("Employee with id " + employeeId + " updated successfully"), HttpStatus.OK);
+        Employee employee = dbEmployeeService.updateEmployee(updateEmployee, empId);
+        return new ResponseEntity<>(employee, HttpStatus.OK);
     }
 
     @DeleteMapping("/{empId}")
