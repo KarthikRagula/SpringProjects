@@ -38,10 +38,10 @@ public class DBEmployeeController {
         return new ResponseEntity<>(emp, HttpStatus.OK);
     }
 
-    @PutMapping("/{empId}")
-    public ResponseEntity<?> updateEmployee(@RequestBody Employee updateEmployee, @PathVariable long empId) {
-        Employee employee = dbEmployeeService.updateEmployee(updateEmployee, empId);
-        return new ResponseEntity<>(employee, HttpStatus.OK);
+    @PutMapping("/")
+    public ResponseEntity<?> updateEmployee(@RequestBody Employee updateEmployee) {
+        Employee employee = dbEmployeeService.updateEmployee(updateEmployee);
+        return new ResponseEntity<>(getEmployeeById(employee.getEmpId()).getBody(), HttpStatus.OK);
     }
 
     @DeleteMapping("/{empId}")

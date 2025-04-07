@@ -11,7 +11,7 @@ public interface DBEmployeeService {
 
     Employee getEmployeeById(long empId);
 
-    Employee updateEmployee(Employee updateEmployee, long empId);
+    Employee updateEmployee(Employee updateEmployee);
 
     long deleteEmployee(long empId);
 }

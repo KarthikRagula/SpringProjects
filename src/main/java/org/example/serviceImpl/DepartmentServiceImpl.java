@@ -42,19 +42,18 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Department updateDepartment(Department updateDepartment, long deptId) {
-        Department department = hibernateTemplate.get(Department.class, deptId);
+    public Department updateDepartment(Department updateDepartment) {
+        Department department = getDepartmentById(updateDepartment.getDeptId());
         if (department == null) {
-            throw new DepartmentNotFoundException("Department with the Id " + deptId + " is not found");
+            throw new DepartmentNotFoundException("Department with the Id " + updateDepartment.getDeptId() + " is not found");
         }
-        updateDepartment.setDeptId(deptId);
         hibernateTemplate.merge(updateDepartment);
         return updateDepartment;
     }
 
     @Override
     public long deleteDepartment(long deptId) {
-        Department department = hibernateTemplate.get(Department.class, deptId);
+        Department department = getDepartmentById(deptId);
         if (department == null) {
             throw new DepartmentNotFoundException("Department with the Id " + deptId + " is not found");
         }
