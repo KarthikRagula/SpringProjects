@@ -18,10 +18,15 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public void registerUser(UserEntity user) {
+    public void registerUser(UserEntity user, boolean makeAdmin) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.saveUser(user);
-        userRepository.assignRole(user.getEmail(), "ROLE_USER");
+        if(makeAdmin){
+            userRepository.assignRole(user.getEmail(), "ROLE_ADMIN");
+        }
+        else {
+            userRepository.assignRole(user.getEmail(), "ROLE_USER");
+        }
     }
 
     public UserEntity getUserByEmail(String email) {

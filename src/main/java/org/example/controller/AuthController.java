@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -16,15 +18,12 @@ public class AuthController {
     private UserService userService;
 
     @PostMapping("/signup")
-    public ResponseEntity<?> register(@RequestBody UserEntity user) {
+    public ResponseEntity<?> register(@RequestBody UserEntity user, @RequestParam(required = false) boolean makeAdmin) {
         if (userService.getUserByEmail(user.getEmail()) != null) {
             return new ResponseEntity<>(new ResponseMessage("User already exists"), HttpStatus.OK);
         }
-        userService.registerUser(user);
+        userService.registerUser(user, makeAdmin);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
-
 }
-//
 //admin role
-//        login logut session
