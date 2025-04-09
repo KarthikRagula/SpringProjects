@@ -1,6 +1,5 @@
 package org.example.controller;
 
-import jakarta.servlet.http.HttpSession;
 import org.example.entity.UserEntity;
 import org.example.response.ResponseMessage;
 import org.example.service.UserService;
@@ -19,9 +18,13 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<?> register(@RequestBody UserEntity user) {
         if (userService.getUserByEmail(user.getEmail()) != null) {
-            return new ResponseEntity<>(new ResponseMessage("User already exists, Please Login"), HttpStatus.OK);
+            return new ResponseEntity<>(new ResponseMessage("User already exists"), HttpStatus.OK);
         }
         userService.registerUser(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
+
 }
+//
+//admin role
+//        login logut session

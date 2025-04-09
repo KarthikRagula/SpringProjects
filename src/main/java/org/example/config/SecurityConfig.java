@@ -28,7 +28,6 @@ public class SecurityConfig {
                         .requestMatchers("/auth/signup").permitAll()
                         .anyRequest().authenticated()
                 ).httpBasic(Customizer.withDefaults());
-        System.out.println("came 1");
         return http.build();
     }
 
@@ -36,14 +35,11 @@ public class SecurityConfig {
     public UserDetailsService userDetailsService() {
         JdbcUserDetailsManager jdbcManager = new JdbcUserDetailsManager(dataSource);
         jdbcManager.setUsersByUsernameQuery(
-                "SELECT email AS username, password AS password, true AS enabled FROM UserEntity WHERE email = ?1"
+                "SELECT user_email AS username, user_password AS password, true AS enabled FROM USER_ENTITY WHERE user_email = ?"
         );
-        System.out.println("came 2");
-
         jdbcManager.setAuthoritiesByUsernameQuery(
-                "SELECT userEmail AS username, roleName AS authority FROM UserRole WHERE userEmail = ?1"
+                "SELECT user_email AS username, role_name AS authority FROM USER_ROLE WHERE user_email = ?"
         );
-
         return jdbcManager;
     }
 

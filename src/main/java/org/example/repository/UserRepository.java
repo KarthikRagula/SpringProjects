@@ -2,6 +2,7 @@ package org.example.repository;
 
 import jakarta.transaction.Transactional;
 import org.example.entity.UserEntity;
+import org.example.entity.UserRole;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -22,13 +23,10 @@ public class UserRepository {
 
     @Transactional
     public void assignRole(String email, String role) {
-        hibernateTemplate.execute(session -> {
-            session.createNativeQuery("INSERT INTO user_role (userEmail, roleName) VALUES (:email, :role)")
-                    .setParameter("email", email)
-                    .setParameter("role", role)
-                    .executeUpdate();
-            return null;
-        });
+        UserRole userRole = new UserRole();
+        userRole.setUserEmail(email);
+        userRole.setRoleName(role);
+        hibernateTemplate.save(userRole);
     }
 
     public UserEntity getUserByEmail(String email) {
