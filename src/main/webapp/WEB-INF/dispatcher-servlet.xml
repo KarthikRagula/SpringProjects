@@ -48,5 +48,22 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+
+    <bean id="transactionOperations" class="org.springframework.transaction.support.TransactionTemplate">
+        <constructor-arg ref="transactionManager" />
+    </bean>
+
+    <bean id="sessionRepository" class="org.springframework.session.jdbc.JdbcIndexedSessionRepository">
+        <constructor-arg index="0" ref="jdbcTemplate"/>
+        <constructor-arg index="1" ref="transactionOperations"/>
+    </bean>
+
+    <bean id="springSessionRepositoryFilter" class="org.springframework.session.web.http.SessionRepositoryFilter">
+        <constructor-arg ref="sessionRepository"/>
+    </bean>
+
     <tx:annotation-driven transaction-manager="transactionManager"/>
 </beans>
